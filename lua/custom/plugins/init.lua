@@ -2,6 +2,10 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'java',
+  callback = function() require('custom.plugins.jdtls.jdtls_setup').setup {} end,
+})
 
 return {
   {
@@ -24,5 +28,14 @@ return {
         { '<C-l>', function() require('harpoon.ui').nav_file(4) end, desc = 'Harpoon Toggle' },
       }
     end,
+  },
+  {
+    'mason-org/mason-lspconfig.nvim',
+    opts = {
+      automatic_enable = { exclude = { 'jdtls' } },
+    },
+  },
+  {
+    'mfussenegger/nvim-jdtls',
   },
 }
